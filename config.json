@@ -1,0 +1,4 @@
+{
+  "data_dir": "data",
+  "sampling": {"seed": 20261124, "general": 200, "enriched": 200, "allocation": "equal", "period_min": 2, "compare_budgets": [200, 400, 500]}
+}

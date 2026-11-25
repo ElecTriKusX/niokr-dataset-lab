@@ -1,0 +1,13 @@
+/data/
+/archive/
+/exports/
+/results/
+*.sqlite*
+*.db
+*.jsonl
+*.csv
+*.zip
+*.tmp
+__pycache__/
+.venv/
+.env

@@ -1,0 +1,16 @@
+{
+  "sample_id": "P0001",
+  "status": "inferred_tasks_grounded",
+  "confidence": "medium",
+  "tasks": [
+    {
+      "text": "Пример формата задачи; не результат разметки",
+      "origin": "inferred",
+      "expected_result": null,
+      "evidence_spans": [
+        {"field": "annotation", "start": 0, "end": 5, "text": "Текст"}
+      ]
+    }
+  ],
+  "limitations": ["Пример структуры; реальные поля должны соответствовать конкретному тексту"]
+}
