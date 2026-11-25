@@ -102,6 +102,7 @@ def download_corpus(from_year,to_year,output):
 if __name__=='__main__':
     import argparse
     from datetime import date
-    p=argparse.ArgumentParser(description=__doc__); p.add_argument('root',type=Path,nargs='?');p.add_argument('--out',type=Path,default=Path('data/corpus.sqlite'));p.add_argument('--from-year',type=int);p.add_argument('--to-year',type=int,default=date.today().year);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__); p.add_argument('root',type=Path,nargs='?');p.add_argument('--config',type=Path,default=Path(__file__).resolve().parent/'config.json');p.add_argument('--out',type=Path);p.add_argument('--from-year',type=int);p.add_argument('--to-year',type=int,default=date.today().year);a=p.parse_args()
     if (a.root is None)==(a.from_year is None): p.error('Specify root OR --from-year')
-    print(jd(import_corpus(a.root,a.out) if a.root else download_corpus(a.from_year,a.to_year,a.out)))
+    config=json.loads(a.config.read_text(encoding='utf-8')); output=a.out or (a.config.resolve().parent/Path(config['data_dir'])/'corpus.sqlite')
+    print(jd(import_corpus(a.root,output) if a.root else download_corpus(a.from_year,a.to_year,output)))

@@ -162,14 +162,15 @@ def main():
     q=sub.add_parser('import');q.add_argument('--root',type=Path,required=True)
     q=sub.add_parser('audit');q.add_argument('--index',type=Path);q.add_argument('--manifest',type=Path);q.add_argument('--previous-review',type=Path)
     q=sub.add_parser('pilot');q.add_argument('--verify',type=Path)
-    sub.add_parser('compare');q=sub.add_parser('export');q.add_argument('output',type=Path)
-    sub.add_parser('status');a=p.parse_args();c=json.loads(a.config.read_text(encoding='utf-8'));base=a.config.resolve().parent;d=base/c['data_dir']; corpus=d/'corpus.sqlite'; audit=d/'audit.sqlite'; datasets=d/'datasets.sqlite'; comparison_db=d/'comparison.sqlite'
+    sub.add_parser('compare');q=sub.add_parser('export');q.add_argument('output',type=Path,nargs='?',default=Path('pilot_inputs.jsonl'))
+    sub.add_parser('status');a=p.parse_args();c=json.loads(a.config.read_text(encoding='utf-8'));base=a.config.resolve().parent;d=base/c['data_dir']; corpus=d/'corpus.sqlite'; audit=d/'audit.sqlite'; results=base/c.get('results_dir','results'); datasets=results/'datasets.sqlite'; comparison_db=results/'comparison.sqlite'
     settings=c['sampling']
     if a.command=='import': result=import_corpus(a.root,corpus)
     elif a.command=='audit': result=write_audit(corpus,audit,a.index,a.manifest,a.previous_review)
     elif a.command=='pilot': result=sample(corpus,audit,datasets,settings,a.verify)
     elif a.command=='compare': result=comparison(audit,comparison_db,settings)
-    elif a.command=='export': result=export(datasets,a.output)
+    elif a.command=='export':
+        output=results/a.output; output.parent.mkdir(parents=True,exist_ok=True); result=export(datasets,output)
     else:
         result={}
         for path,kind in [(corpus,'corpus'),(audit,'audit'),(datasets,'dataset'),(comparison_db,'comparison')]:

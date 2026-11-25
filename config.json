@@ -1,4 +1,16 @@
 {
-  "data_dir": "data",
-  "sampling": {"seed": 20261124, "general": 200, "enriched": 200, "allocation": "equal", "period_min": 2, "compare_budgets": [200, 400, 500]}
+  "data_dir": "C:/Users/elect/Desktop/Работа/НИОКР",
+  "sampling": {
+    "seed": 20261124,
+    "general": 200,
+    "enriched": 200,
+    "allocation": "equal",
+    "period_min": 2,
+    "compare_budgets": [
+      200,
+      400,
+      500
+    ]
+  },
+  "results_dir": "results"
 }
